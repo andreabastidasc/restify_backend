@@ -25,6 +25,7 @@ sleep_management/migrations/
 
 # VS Code settings
 .vscode/
+.devcontainer
 
 # macOS
 .DS_Store

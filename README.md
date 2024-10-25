@@ -84,7 +84,6 @@ docker-compose exec web python manage.py test
 
 - 🤖 Add machine learning capabilities for more accurate sleep detection
 - 📱 Expand integration with other wearable devices
-- 🔐 Implement user authentication with JWT
 
 ## 🤝 Contributing
 
