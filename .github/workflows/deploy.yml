@@ -27,12 +27,14 @@ jobs:
       - name: Link Railway Project
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway link --project "${{ secrets.RAILWAY_PROJECT_ID }}" --verbose
+        run: |
+          railway link --project="${{ secrets.RAILWAY_PROJECT_ID }}" --verbose
 
       - name: Deploy to Staging
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway up --environment staging --verbose
+        run: |
+          railway up --environment=staging --verbose
 
   deploy_production:
     name: Deploy to Production
@@ -56,9 +58,11 @@ jobs:
       - name: Link Railway Project
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway link --project "${{ secrets.RAILWAY_PROJECT_ID }}" --verbose
+        run: |
+          railway link --project="${{ secrets.RAILWAY_PROJECT_ID }}" --verbose
 
       - name: Deploy to Production
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: railway up --environment production --verbose
+        run: |
+          railway up --environment=production --verbose
