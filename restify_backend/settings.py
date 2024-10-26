@@ -37,6 +37,9 @@ ALLOWED_HOSTS = [
     'restifybackend-production.up.railway.app',  # Add your domain here
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://restifybackend-production.up.railway.app',
+]
 
 # Application definition
 
@@ -61,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'restify_backend.urls'
@@ -93,7 +97,7 @@ DATABASES = {
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
         'HOST': env('POSTGRES_HOST'),
-        'PORT': '5432',
+        'PORT': '5432', #FOR LOCAL DEV 52014
     }
 }
 
@@ -132,6 +136,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
