@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   staging:
@@ -28,6 +29,7 @@ jobs:
           railway up --service ${{ secrets.RAILWAY_SERVICE_ID }}
 
   production:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     name: Deploy to Production
 
