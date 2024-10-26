@@ -6,3 +6,4 @@ django-environ
 djangorestframework-simplejwt
 gunicorn
 whitenoise
+django-cors-headers

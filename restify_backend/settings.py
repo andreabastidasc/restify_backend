@@ -40,7 +40,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://restifybackend-production.up.railway.app',
-    'https://restifybackend-staging.up.railway.app/'
+    'https://restifybackend-staging.up.railway.app'
 ]
 
 # Application definition
@@ -99,7 +99,7 @@ DATABASES = {
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
         'HOST': env('POSTGRES_HOST'),
-        'PORT': '5432', #FOR LOCAL DEV 52014
+        'PORT': '52014', #FOR LOCAL DEV 52014
     }
 }
 
