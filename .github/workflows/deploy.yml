@@ -17,8 +17,9 @@ jobs:
 
       - name: Install Railway CLI
         run: |
-          curl -sSL https://github.com/railwayapp/cli/releases/latest/download/railway-linux-amd64 -o /usr/local/bin/railway
-          chmod +x /usr/local/bin/railway
+          curl -sSL https://github.com/railwayapp/cli/releases/latest/download/railway-linux-amd64 -o railway
+          chmod +x railway
+          sudo mv railway /usr/local/bin/railway
 
       - name: Debug Environment Variables
         run: |
@@ -49,8 +50,9 @@ jobs:
 
       - name: Install Railway CLI
         run: |
-          curl -sSL https://github.com/railwayapp/cli/releases/latest/download/railway-linux-amd64 -o /usr/local/bin/railway
-          chmod +x /usr/local/bin/railway
+          curl -sSL https://github.com/railwayapp/cli/releases/latest/download/railway-linux-amd64 -o railway
+          chmod +x railway
+          sudo mv railway /usr/local/bin/railway
 
       - name: Link Railway Project
         env:
