@@ -25,9 +25,8 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-          RAILWAY_SERVICE: ${{ secrets.RAILWAY_SERVICE_ID }}
         run: |
-          railway up
+          railway up --service ${{ secrets.RAILWAY_SERVICE_ID }}
 
   production:
     runs-on: ubuntu-latest
@@ -48,6 +47,5 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROD_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-          RAILWAY_SERVICE: ${{ secrets.RAILWAY_SERVICE_ID }}
         run: |
-          railway up
+          railway up --service ${{ secrets.RAILWAY_SERVICE_ID }}
