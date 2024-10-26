@@ -17,8 +17,8 @@ jobs:
 
       - name: Install Railway CLI
         run: |
-          curl -sSL https://railway.app/install | bash
-          echo "export PATH=$HOME/.railway/bin:$PATH" >> $GITHUB_ENV
+          curl -sSL https://github.com/railwayapp/cli/releases/latest/download/railway-linux-amd64 -o /usr/local/bin/railway
+          chmod +x /usr/local/bin/railway
 
       - name: Debug Environment Variables
         run: |
@@ -49,8 +49,8 @@ jobs:
 
       - name: Install Railway CLI
         run: |
-          curl -sSL https://railway.app/install | bash
-          echo "export PATH=$HOME/.railway/bin:$PATH" >> $GITHUB_ENV
+          curl -sSL https://github.com/railwayapp/cli/releases/latest/download/railway-linux-amd64 -o /usr/local/bin/railway
+          chmod +x /usr/local/bin/railway
 
       - name: Link Railway Project
         env:
