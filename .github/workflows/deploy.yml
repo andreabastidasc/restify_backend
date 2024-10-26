@@ -30,8 +30,10 @@ jobs:
       - name: Deploy to Staging
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+          RAILWAY_ENVIRONMENT: staging
         run: |
-          railway up --environment staging
+          railway up
 
   deploy_production:
     name: Deploy to Production
@@ -55,5 +57,7 @@ jobs:
       - name: Deploy to Production
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+          RAILWAY_ENVIRONMENT: production
         run: |
-          railway up --environment production
+          railway up
