@@ -1,4 +1,3 @@
-
 # 🌙 Restify 🌙
 
 Restify is an application designed to help users optimize their sleep schedules by automatically setting alarms based on sleep patterns detected through various methods such as smartwatch data, phone inactivity, sound detection, and more. 🛏️⏰
@@ -30,6 +29,18 @@ restify_backend/
 │
 └── README.md          # Project README
 ```
+
+## 🚀 Environments
+
+Restify uses two deployment environments:
+
+1. **Staging Environment**: Automatically deploys on every push to the `main` branch, allowing for testing and quality assurance before production.  
+   - **URL**: `https://restifybackend-staging.up.railway.app/`
+   - **Trigger**: Push to `main` branch
+
+2. **Production Environment**: Deployed manually via GitHub Actions to ensure that only approved changes are released to end users.
+   - **URL**: `https://restifybackend-production.up.railway.app/`
+   - **Trigger**: Manually triggered in GitHub Actions via the "Run workflow" button
 
 ## 🚀 Getting Started
 
