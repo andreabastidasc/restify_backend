@@ -19,13 +19,14 @@ jobs:
       - name: Install Railway CLI
         run: |
           curl -fsSL https://railway.app/install.sh | sh
-          echo "$HOME/.railway/bin" >> $GITHUB_PATH  # Add Railway to PATH
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH
 
       - name: Deploy to Railway (Staging)
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID}}
         run: |
-          railway up --project-id ${{ secrets.RAILWAY_PROJECT_ID }}  # Replace with your staging project ID
+          railway up
 
   production:
     runs-on: ubuntu-latest
@@ -39,11 +40,12 @@ jobs:
       - name: Install Railway CLI
         run: |
           curl -fsSL https://railway.app/install.sh | sh
-          echo "$HOME/.railway/bin" >> $GITHUB_PATH  # Add Railway to PATH
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH
 
       - name: Deploy to Railway (Production)
         if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROD_TOKEN }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
         run: |
-          railway up --project-id ${{ secrets.RAILWAY_PROJECT_ID }}  # Replace with your production project ID
+          railway up
