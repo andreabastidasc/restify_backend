@@ -7,60 +7,51 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy_staging:
-    name: Deploy to Staging
-    runs-on: ubuntu-latest
+  staging:
     if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Debug Environment Variables
-        run: echo "RAILWAY_PROJECT_ID is set to: ${{ secrets.RAILWAY_PROJECT_ID }}"
-
-      - name: Link Railway Project
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
-        run: railway link --project="${{ secrets.RAILWAY_PROJECT_ID }}"
-
-      - name: Deploy to Staging
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
-        run: railway up --environment staging --verbose
-
-  deploy_production:
-    name: Deploy to Production
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
+    name: Deploy to Staging
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          node-version: '16.x'
+          python-version: '3.x'
 
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
 
-      - name: Debug Environment Variables
-        run: echo "RAILWAY_PROJECT_ID is set to: ${{ secrets.RAILWAY_PROJECT_ID }}"
+      - name: Deploy to Railway (Staging)
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
+        run: |
+          railway up --project-id ${{ secrets.RAILWAY_PROJECT_ID }}
 
-      - name: Link Railway Project
+  production:
+    runs-on: ubuntu-latest
+    name: Deploy to Production
+    needs: staging
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Deploy to Railway (Production)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROD_TOKEN }}
-        run: railway link --project="${{ secrets.RAILWAY_PROJECT_ID }}"
-
-      - name: Deploy to Production
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROD_TOKEN }}
-        run: railway up --environment production --verbose
+        run: |
+          railway up --project-id ${{ secrets.RAILWAY_PROJECT_ID }}
