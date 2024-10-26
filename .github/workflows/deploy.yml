@@ -2,7 +2,8 @@ name: Deploy to Railway
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -17,10 +18,13 @@ jobs:
       - name: Install Railway CLI
         run: curl -fsSL https://railway.app/install.sh | sh
 
-      - name: Link Railway Project
+      - name: Debug Environment Variables
+        run: echo "RAILWAY_PROJECT_ID is set to: ${{ secrets.RAILWAY_PROJECT_ID }}"
+
+      - name: Link Railway Project for Staging
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
-        run: railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
+        run: railway link --project="${{ secrets.RAILWAY_PROJECT_ID }}" || echo "Link failed"
 
       - name: Deploy to Staging
         env:
@@ -38,10 +42,13 @@ jobs:
       - name: Install Railway CLI
         run: curl -fsSL https://railway.app/install.sh | sh
 
-      - name: Link Railway Project
+      - name: Debug Environment Variables
+        run: echo "RAILWAY_PROJECT_ID is set to: ${{ secrets.RAILWAY_PROJECT_ID }}"
+
+      - name: Link Railway Project for Production
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROD_TOKEN }}
-        run: railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
+        run: railway link --project="${{ secrets.RAILWAY_PROJECT_ID }}" || echo "Link failed"
 
       - name: Deploy to Production
         env:
