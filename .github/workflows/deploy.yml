@@ -31,7 +31,6 @@ jobs:
   production:
     runs-on: ubuntu-latest
     name: Deploy to Production
-    needs: staging
 
     steps:
       - name: Checkout code
