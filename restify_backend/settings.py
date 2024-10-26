@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'restifybackend-production.up.railway.app',
-    'https://restifybackend-staging.up.railway.app/'
+    'restifybackend-staging.up.railway.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
