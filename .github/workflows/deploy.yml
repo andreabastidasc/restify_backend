@@ -16,20 +16,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
+      - name: Install Railway CLI
         run: |
-          pip install -r requirements.txt
+          curl -fsSL https://railway.app/install.sh | sh
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH  # Add Railway to PATH
 
       - name: Deploy to Railway (Staging)
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
         run: |
-          railway up --project-id ${{ secrets.RAILWAY_PROJECT_ID }}
+          railway up --project-id ${{ secrets.RAILWAY_PROJECT_ID }}  # Replace with your staging project ID
 
   production:
     runs-on: ubuntu-latest
@@ -40,18 +36,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
+      - name: Install Railway CLI
         run: |
-          pip install -r requirements.txt
+          curl -fsSL https://railway.app/install.sh | sh
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH  # Add Railway to PATH
 
       - name: Deploy to Railway (Production)
         if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROD_TOKEN }}
         run: |
-          railway up --project-id ${{ secrets.RAILWAY_PROJECT_ID }}
+          railway up --project-id ${{ secrets.RAILWAY_PROJECT_ID }}  # Replace with your production project ID
