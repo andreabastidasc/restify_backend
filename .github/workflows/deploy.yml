@@ -26,15 +26,11 @@ jobs:
       - name: Debug Environment Variables
         run: echo "RAILWAY_PROJECT_ID is set to: ${{ secrets.RAILWAY_PROJECT_ID }}"
 
-      - name: Link Railway Project for Staging
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
-        run: railway link --project="${{ secrets.RAILWAY_PROJECT_ID }}" || echo "Link failed"
-
       - name: Deploy to Staging
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_STAGE_TOKEN }}
-        run: railway up --environment staging
+        run: |
+          railway up --project="${{ secrets.RAILWAY_PROJECT_ID }}" --environment staging
 
   deploy_production:
     name: Deploy to Production
@@ -55,12 +51,8 @@ jobs:
       - name: Debug Environment Variables
         run: echo "RAILWAY_PROJECT_ID is set to: ${{ secrets.RAILWAY_PROJECT_ID }}"
 
-      - name: Link Railway Project for Production
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROD_TOKEN }}
-        run: railway link --project="${{ secrets.RAILWAY_PROJECT_ID }}" || echo "Link failed"
-
       - name: Deploy to Production
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_PROD_TOKEN }}
-        run: railway up --environment production
+        run: |
+          railway up --project="${{ secrets.RAILWAY_PROJECT_ID }}" --environment production
