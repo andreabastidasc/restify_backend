@@ -99,7 +99,7 @@ DATABASES = {
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
         'HOST': env('POSTGRES_HOST'),
-        'PORT': '52014', #FOR LOCAL DEV 52014
+        'PORT': '5432', #FOR LOCAL DEV 52014
     }
 }
 
